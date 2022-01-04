@@ -1,0 +1,35 @@
+body{
+    color: #d4d4d4;
+    text-align: left;
+    background-color:#D9D9D9;
+}
+
+.navbar-color{
+    background-color:#124673;
+  }
+
+
+.card-color{
+color: white;
+background-color: #405F73!important;;
+border: none;
+}
+
+.button-adp{
+    background-color: #2E78A6;
+    border: none;
+  }
+
+.efeito-hover{
+  color: #e2e8f0;
+  text-decoration: none;
+}
+
+.efeito-hover :hover{
+  color: #173768;
+  text-decoration: underline;
+}
+
+.escuro{
+  background-color:#202225; 
+}

@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block profile %} {% endblock %}
+{% load filtergroups_tags %}
+{% block content %}
+    {% block create_post %}
+    <!-- ver uma forma de ajeitar esse botao estou pensando em colocar em outro lugar -->
+      <div align="center" style="margin: 10px;">
+        <a href="create-post/"
+          ><button class="btn btn-primary btn-lg" type="button">
+            Create a Post
+          </button></a
+        >
+      </div>
+    {% endblock %}
+    <h1 align="center" style="color:#3B636E;">{% block header %}Publicações{% endblock %}</h1>
+    <div id="posts">
+      <!-- flex-column-reverse inverte os itens com isso podemos pegar sempre os ultimos posts-->
+      {% for post in posts %}
+      <div class="card border-dark card-color">
+        <div class="card-header d-flex bd-highlight mb-3">
+          {% if post.author.foto != ''%} 
+          <div class="p-2 bd-highlight">
+            <img src="{{post.author.foto.url}}" alt="" id="fotoPerfil" class="rounded-circle bd-highlight" width="35px" height="35px">
+            <a href="{% url 'profile' post.author.username%}" class="text-white"><small> <b> {{post.author.username}} </b></small></a>
+          </div>
+          {% else %}
+          <div class="p-2 bd-highlight"> 
+            <img src="/dashboard/static/imgs/avatar-sem-foto.png" alt="" class="rounded-circle bd-highlight">
+            <a href="{% url 'profile' post.author.username%}" class="text-white"><small> <b> {{post.author.username}} </b></small></a>
+          </div>
+          {% endif %}
+          <div class="ms-auto p-2 bd-highlight">
+            <span id="likes-count-{{post.id}}">
+            {{ post.likes.all|length }}
+            </span> 
+            {% if post.likes.all|name_group:user.id %}
+                <i
+                class="fas fa-thumbs-up"
+                id="like-button-{{post.id}}"
+                onclick='like({{post.id}},"{{user.username}}")'
+              ></i>
+            {% else %}
+                <i
+                  class="far fa-thumbs-up"
+                  id="like-button-{{post.id}}"
+                  onclick='like("{{post.id}}","{{user.username}}")'
+                ></i>
+            {% endif %}
+
+            {% if user.id == post.author.id %}
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-primary dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                ></button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="{% url 'deletepost' post.id %}" class="dropdown-item"
+                      >Delete</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-text">{{post.text}}</div>
+          <br />
+          <div class="collapse" id="comments-{{post.id}}">
+            <div class="card card-color">
+              <div class="card-body" id="comments-expanded-{{post.id}}">
+                {% for comment in post.comments.all %}
+                <div class="d-flex justify-content-between align-items-center escuro p-1">
+                  <div>
+                    <a href="/posts/{{comment.user.username}}"
+                      >{{comment.author}}</a
+                    >: {{comment.text}}
+                  </div>
+                  <div>
+                    <small class="text-muted"> {{comment.date_created}}</small>
+                    {% if user.id == comment.author.id or user.id == post.author.id %}
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-primary dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                      ></button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a
+                            href="{% url 'deletecomment' comment.id %}"
+                            class="dropdown-item"
+                            >Delete</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <p class="card-text">
+            {% if post.comments.all|length > 0 %}
+            <a data-bs-toggle="collapse" href="#comments-{{post.id}}" role="button" class="efeito-hover">
+              <small> <b>View {{post.comments.all|length}} Comments</b> </small>
+            </a>
+            {% else %}
+            <small class="text-white">No Comments</small>
+            {% endif %}
+          </p>
+          <form
+            class="input-group mb-3"
+            method="POST"
+            action="create-comment/{{post.id}}/{{user.username}}/"
+          >
+          {% csrf_token %}
+            <input
+              type="text"
+              id="text"
+              name="text"
+              class="form-control"
+              placeholder="Comment something!"
+            />
+            <button type="submit" class="btn button-adp text-white">Comment</button>
+          </form>
+        </div>
+        <div class="card-footer text-white"> {{post.date_created}}</div>
+      </div>
+      <br /> {% endfor %}
+    </div>
+ {% endblock %}

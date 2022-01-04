@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} 
+{% block content %}
+    <div id="tela-login" class="d-flex justify-content-center align-items-center">
+      <div id="tela-cadastro" class="border border-secondary border-2 p-5 rounded" style="background-color: #405F73;">  
+        <form method="POST" action="{% url 'cadastro' %}">
+          {% csrf_token %}
+          <h3 align="center">Sign Up</h3>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+            />
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Enter Username"
+            />
+            <label for="name">First name</label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              class="form-control"
+              placeholder="Enter first name"
+            />
+            <label for="last_name">Last name</label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              class="form-control"
+              placeholder="Enter last_name"
+            />
+            <label for="password1">Password</label>
+            <input
+              type="password"
+              id="password1"
+              name="password1"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+            <label for="password2">Password Again</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="Enter Password Again"
+            />
+            <label for="bio">Bibliografia</label>
+            <textarea class= "form-control" name="bio" id="bio" cols="10" rows="8" placeholder="Enter bibliografia">
+            </textarea>
+            <br />
+            <div align="center">
+              <button class="btn btn-primary" type="submit">Sign Up</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+   
+    {% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="d-flex justify-content-center p-3">
+      <div class="m-3 p-3 rounded" style="background-color: #405F73;"> 
+          <br />
+          <br />
+          <div align="center">
+            <h1>{{user.username}}</h1>
+            {% if user.foto %}
+            <img src="{{user.foto.url}}" alt="ft-usuario" id="fotoPerfil" class="rounded-circle " width="150px" height="150px">
+            {% else %}
+            <img src="templates/static/imgs/avatar-sem-foto.png" alt="" class="rounded-circle ">
+            {% endif %}
+          </div>
+        <br />
+        <br />
+        <br />
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group" style="width:320px;"> 
+            <label for="foto-perfil" class="form-label">Image profile </label>
+            <input 
+              type="file"
+              name="foto-perfil" 
+              id="foto-perfil" 
+              align="center"
+              class="form-control">
+            <br />
+            <br />
+            <label for="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter Email"
+              value="{{user.email}}"
+            />
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Enter Username"
+              value="{{user.username}}"
+            />
+            <label for="first_name">First Name</label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              class="form-control"
+              placeholder="Enter first_name"
+              value="{{user.first_name}}"
+            />
+            <label for="last_name">Last Name</label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              class="form-control"
+              placeholder="Enter last_name"
+              value="{{user.last_name}}"
+            />
+            <label for="bio">Bibliografia</label>
+            <textarea 
+              class= "form-control" 
+              name="bio" 
+              id="bio" 
+              cols="10" 
+              rows="10" 
+              placeholder="Enter bibliografia">{{user.bio}}</textarea> 
+
+            <br />
+            <div align="center" >
+              <button class="btn btn-primary" type="submit">Editar</button>
+            </div>
+          </div> 
+          </form>
+  </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+
+{% block title %}Login{% endblock %} 
+{% block content%}
+  <br />
+  <br />
+  <div style="height:auto" >
+    <div id="tela-login" class="d-flex justify-content-center align-items-center" > 
+        <div class="border border-secondary border-2 p-5 rounded" style="background-color: #405F73;">
+        <form method="POST">
+          {% csrf_token %}
+          <h3 align="center">Login</h3>
+          <br />
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Enter username"
+            />
+            <br />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+            <br />
+            <br />
+            <div align="center">
+              <button class="btn btn-primary button-adp" type="submit">Login</button>
+            </div>
+          </div>
+          <br />
+          <br />
+        </form>
+      </div>
+      </div>
+  </div>
+{% endblock %}
+  

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %} Notifications {% endblock %}
+
+{% block content %} 
+
+    {% if user.notifications.all|length > 0 %}
+    <h1 align="center" style="color:#3B636E;"> Notifications</h1>
+    <div id='notifications' class="justify-content-center">
+        {% for notification in user.notifications.all %}
+        <div id='notification' class="p-3 container ">
+                <div class="card card-color">
+                    <div class="card-header d-flex justify-content-between"> 
+                        {% if notification.status %} 
+                            <div class="form-group form-check">
+                                <input checked type="checkbox" class="form-check-input" id="viewed-{{notification.id}}" onclick="changeVisualization({{notification.id}})">
+                                <label id="value-checkbox-{{notification.id}}" class="form-check-label" for="exampleCheck1"><b>Notification viewed</b></label>
+                            </div>
+                        {% else %}
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="viewed-{{notification.id}}" onclick="changeVisualization({{notification.id}})">
+                                <label id="value-checkbox-{{notification.id}}" class="form-check-label" for="exampleCheck1"><b>Notification wasn't viewed</b></label>
+                            </div>
+                        {% endif %}
+                        <div class="btn-group">
+                            <button
+                            type="button"
+                            class="btn btn-sm btn-primary dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            ></button>
+                            <ul class="dropdown-menu">
+                            <li>
+                                <a href="{% url 'deletenotifications' notification.id %}" class="dropdown-item"
+                                >Delete</a
+                                >
+                            </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{notification.message}}</p>
+                        <!-- card-link= deixa todos os links dos cards um ao lado do outro-->
+                    </div>
+                    <div class="card-footer text-muted">
+                        <!-- Troca esse botão por um de delete notification-->
+                        <a href="#" class="btn btn-primary button-adp">View post</a>
+                    </div>
+                </div>
+         </div>
+         {% endfor%}
+    </div>
+
+    {% else %}
+        <h1 align="center"> No notifications at this time. </h1>
+    {% endif%}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "dashboard/posts.html" %}
+{% block title %} {{visiting_user.username}} | profile {% endblock %}
+
+{% block profile %}
+<div class="d-flex justify-content-start align-items-start card-color rounded p-2"> 
+    <div class="align-self-center card-color">
+        {% if visiting_user.foto %}
+            <img src="{{visiting_user.foto.url}}" alt="" id="fotoPerfil" class="rounded-circle " width="150px" height="150px">
+        {% else%}
+            <img src="templates/static/imgs/avatar-sem-foto.png" alt="" class="rounded-circle ">
+        {% endif%}
+    </div>
+    <div class="mt-0 align-self-start card-color">
+      <div class="card d-flex justify-content-start align-items-start card-color">
+        <div class="card-body card-color">
+            <p class="card-title"><h3>{{visiting_user.first_name}} {{visiting_user.last_name}}</h3></p>
+            <p class="card-text card-color">
+                <p> <b> {{visiting_user.username}} </b></p>
+                {% for linha in visiting_user.bio %}
+                    {{linha}}
+                    <br />
+                {% endfor%}
+            </p>
+            <!-- card-link= deixa todos os links dos cards um ao lado do outro
+            <p>Me encontre em outras redes sociais</p>
+            <a href="#" class="card-link">facebook</a>
+            <a href="#" class="card-link">instagram</a>-->
+        </div>
+        {% if visiting_user.id == user.id %}
+            <div class="card-footer text-muted card-color">
+                <a href="{% url 'loadScreenBio' user.id %}" class="btn btn-primary button-adp"> Editar </a>
+            </div>
+        {% else %}
+            {% if user not in followers or followers|length == 0 %}  
+                <div class="card-footer text-muted card-color">
+                    <a href="{% url 'follow_user' visiting_user.id %}" class="btn btn-primary button-adp"> Seguir </a>
+                </div>
+            {% else %}
+                <div class="card-footer text-muted card-color">
+                    <a href="{% url 'unfollow_user' visiting_user.id %}" class="btn btn-primary button-adp"> Deixar de Seguir </a>
+                </div>
+            {% endif %}
+        {% endif %}
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+
+<!--{% block footer %}
+    <div align='center'> 
+        <a href="/home"
+        > <button type="button" class="btn btn-primary btn-lg button-adp">Back</button>
+        </a>
+    </div> 
+{% endblock%}-->
