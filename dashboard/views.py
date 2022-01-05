@@ -51,20 +51,19 @@ def profile(request,username: str):
     """ 
         Método responável por redenriza a tela de perfil do usuario logado ou qualquer outro a plataforma.
 
-        [NOTE]: current_user é o usuario logado atualmente, já o user é o usuario que está visitando o perfil
-
         Param:
             username: nome de usuario que está entrando em um determinado perfil, 
                       seja dele ou de outra pessoa da plataforma.
 
     """
+    
     visiting_user = User.objects.get(username=username)
     posts = Post.objects.filter(author=visiting_user.id)
     followers = Follower.objects.filter(user_profile=visiting_user)
     followers = [flw.follower for flw in followers.all()]
     user = request.user
     visiting_user.bio = visiting_user.bio.split('<br />')
-    # user vira current_user e current_user muda o nome para visiting_user
+
     return render(request,'dashboard/profile.html', {"user": user,"visiting_user":visiting_user,"posts":posts,"followers":followers})
 
 
