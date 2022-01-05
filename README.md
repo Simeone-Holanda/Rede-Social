@@ -26,5 +26,6 @@ Django 3.2.*
 
 ``` python manage.py migrate ```
 
+``` python manage.py runserver ```
 <br>
 Feito com muito esforço por Simeone Holanda, espero que gostem. 
