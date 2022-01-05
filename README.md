@@ -9,6 +9,8 @@ Django 3.2.*
 - Ative o virtualenv(O caminho pode variar dependendo do sistema operacional).<br>
 - Instale as dependências.<br>
 - Rode as migrações.<br>
+- Crie um arquivo .env na raiz do projeto e adicione sua chave como abaixo
+  SECRET_KEY = '....'
 
 <br>
 
@@ -27,5 +29,6 @@ Django 3.2.*
 ``` python manage.py migrate ```
 
 ``` python manage.py runserver ```
+
 <br>
 Feito com muito esforço por Simeone Holanda, espero que gostem. 
