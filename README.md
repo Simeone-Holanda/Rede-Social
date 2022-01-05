@@ -24,8 +24,6 @@ Django 3.2.*
 
 ``` pip install -r requirements.txt ```
 
-``` python manage.py makemigrations ```
-
 ``` python manage.py migrate ```
 
 <br>
